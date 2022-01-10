@@ -1,0 +1,12 @@
+# Default behaviour
+* text=auto
+
+# Java files
+*.java text
+*.kts text
+
+# gradle windows startup script
+gradlew.bat text eol=crlf
+
+# Binary files
+*.jar binary
