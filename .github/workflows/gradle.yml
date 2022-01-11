@@ -24,12 +24,15 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '8'
-        distribution: 'adopt'
+        distribution: 'temurin'
         cache: gradle
     - name: Validate Gradle wrapper
       uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon
+      env:
+        # Set Java VM options to match options used in gradle builds to prevent forking a daemon process.
+        JAVA_OPTS: '-Xmx512m -XX:MaxMetaspaceSize=256m'
     - name: Cleanup Gradle Cache
       # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
       # Restoring these files from a GitHub Actions cache might cause problems for future builds.
